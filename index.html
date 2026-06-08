@@ -727,7 +727,10 @@
 
       <!-- Form -->
       <div class="glass" style="border-radius:var(--radius);padding:36px;" id="contact-form-wrap">
-        <form id="contact-form" onsubmit="handleSubmit(event)">
+        <form id="contact-form" onsubmit="handleSubmit(event)" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="24d02d1d-036a-4a55-b81e-99f623c5962e">
+          <input type="hidden" name="subject" value="New message from DesignHaus Studio website">
+          <input type="checkbox" name="botcheck" style="display:none;">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;" class="form-2col">
             <div>
               <label style="display:block;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px;">Name</label>
@@ -876,10 +879,23 @@
   }
 
   /* CONTACT FORM */
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    document.getElementById('contact-form').style.display = 'none';
-    document.getElementById('contact-success').style.display = 'block';
+    const form = document.getElementById('contact-form');
+    const btn = form.querySelector('button[type="submit"]');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    const data = new FormData(form);
+    const res = await fetch('https://api.web3forms.com/submit', { method:'POST', body: data });
+    const json = await res.json();
+    if (json.success) {
+      form.style.display = 'none';
+      document.getElementById('contact-success').style.display = 'block';
+    } else {
+      btn.textContent = 'Send Message';
+      btn.disabled = false;
+      alert('Something went wrong. Please try again.');
+    }
   }
 
   /* HAMBURGER */
