@@ -9,16 +9,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #080808;
-      --bg-deep: #050505;
-      --border: rgba(180,200,255,0.10);
-      --border-hover: rgba(180,200,255,0.22);
-      --text: #E4ECFF;
-      --text-muted: #6B7BA8;
-      --text-dim: #3A4466;
-      --accent: #FF6B00;
-      --accent-dim: rgba(255,107,0,0.10);
-      --accent-hover: #E85F00;
+      --bg: #070e1c;
+      --bg-deep: #050a14;
+      --border: rgba(180,210,240,0.10);
+      --border-hover: rgba(180,210,240,0.22);
+      --text: #dce8f4;
+      --text-muted: #6888aa;
+      --text-dim: #253a55;
+      --accent: #9ab8d0;
+      --accent-dim: rgba(154,184,208,0.10);
+      --accent-hover: #b8d0e4;
       --radius: 16px;
       --font-d: 'Roboto', sans-serif;
       --font-b: 'Roboto', sans-serif;
@@ -45,13 +45,13 @@
     body { background:var(--bg); color:var(--text); font-family:var(--font-b); font-size:16px; line-height:1.65; -webkit-font-smoothing:antialiased; font-weight:400; overflow-x:hidden; }
 
     /* ANIMATED BACKGROUND */
-    #bg-canvas { position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; background:#080808; }
+    #bg-canvas { position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; background:#070e1c; }
     .orb { position:absolute; border-radius:50%; will-change:transform; }
-    .orb-1 { width:780px; height:780px; background:radial-gradient(circle at 50% 50%,#0c1b4a 0%,#070e2a 40%,transparent 70%); filter:blur(60px); top:0%; left:-5%; opacity:.80; animation:drift1 22s ease-in-out infinite; }
-    .orb-2 { width:660px; height:660px; background:radial-gradient(circle at 50% 50%,#101438 0%,#080a22 40%,transparent 70%); filter:blur(70px); top:35%; right:-6%; opacity:.75; animation:drift2 28s ease-in-out infinite; }
-    .orb-3 { width:580px; height:580px; background:radial-gradient(circle at 50% 50%,#091742 0%,#050c2c 40%,transparent 70%); filter:blur(65px); bottom:8%; left:18%; opacity:.72; animation:drift3 24s ease-in-out infinite; }
-    .orb-4 { width:440px; height:440px; background:radial-gradient(circle at 50% 50%,#0e1640 0%,transparent 70%); filter:blur(55px); top:55%; left:45%; opacity:.60; animation:drift4 32s ease-in-out infinite; }
-    .orb-5 { width:260px; height:260px; background:radial-gradient(circle at 50% 50%,rgba(255,107,0,.12) 0%,transparent 70%); filter:blur(40px); top:20%; left:55%; opacity:1; animation:drift5 19s ease-in-out infinite; }
+    .orb-1 { width:780px; height:780px; background:radial-gradient(circle at 50% 50%,#0d1e42 0%,#070e2a 40%,transparent 70%); filter:blur(60px); top:0%; left:-5%; opacity:.85; animation:drift1 22s ease-in-out infinite; }
+    .orb-2 { width:660px; height:660px; background:radial-gradient(circle at 50% 50%,#112048 0%,#080a22 40%,transparent 70%); filter:blur(70px); top:35%; right:-6%; opacity:.75; animation:drift2 28s ease-in-out infinite; }
+    .orb-3 { width:580px; height:580px; background:radial-gradient(circle at 50% 50%,#0a1a45 0%,#050c2c 40%,transparent 70%); filter:blur(65px); bottom:8%; left:18%; opacity:.72; animation:drift3 24s ease-in-out infinite; }
+    .orb-4 { width:440px; height:440px; background:radial-gradient(circle at 50% 50%,#0f1a44 0%,transparent 70%); filter:blur(55px); top:55%; left:45%; opacity:.60; animation:drift4 32s ease-in-out infinite; }
+    .orb-5 { width:280px; height:280px; background:radial-gradient(circle at 50% 50%,rgba(154,184,208,.10) 0%,transparent 70%); filter:blur(50px); top:20%; left:55%; opacity:1; animation:drift5 19s ease-in-out infinite; }
 
     @keyframes drift1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(80px,70px) scale(1.08)} 66%{transform:translate(-50px,100px) scale(0.94)} }
     @keyframes drift2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-70px,-80px) scale(1.10)} 66%{transform:translate(90px,50px) scale(0.96)} }
@@ -86,13 +86,13 @@
     /* UTILITY */
     .wrap { max-width:1160px; margin:0 auto; padding:0 28px; }
     .label { font-size:11.5px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--text-muted); margin-bottom:14px; }
-    .badge { display:inline-flex; align-items:center; gap:6px; padding:5px 14px; border-radius:100px; font-size:12.5px; font-weight:600; letter-spacing:.03em; background:var(--accent-dim); color:var(--accent); border:1px solid rgba(255,107,0,.20); }
+    .badge { display:inline-flex; align-items:center; gap:6px; padding:5px 14px; border-radius:100px; font-size:12.5px; font-weight:600; letter-spacing:.03em; background:var(--accent-dim); color:var(--accent); border:1px solid rgba(154,184,208,.20); }
     a { text-decoration:none; }
 
     .btn { display:inline-flex; align-items:center; gap:8px; padding:13px 26px; border-radius:100px; font-family:var(--font-b); font-size:14.5px; font-weight:500; cursor:pointer; border:none; transition:all .2s; white-space:nowrap; }
     .btn svg { width:15px; height:15px; }
-    .btn-p { background:var(--accent); color:#080808; font-weight:700; }
-    .btn-p:hover { background:var(--accent-hover); transform:translateY(-2px); box-shadow:0 8px 24px rgba(255,107,0,.25); }
+    .btn-p { background:linear-gradient(135deg,#b8d0e4 0%,#7a9ab5 100%); color:#060c1a; font-weight:700; }
+    .btn-p:hover { background:linear-gradient(135deg,#cce0f0 0%,#90b0cc 100%); transform:translateY(-2px); box-shadow:0 8px 28px rgba(154,184,208,.30); }
     .btn-o { background:transparent; color:var(--text); border:1px solid var(--border-hover); }
     .btn-o:hover { background:rgba(180,200,255,.06); border-color:rgba(200,215,255,.3); transform:translateY(-2px); }
 
@@ -103,7 +103,7 @@
 
     /* NAV */
     #nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:22px 0; border-bottom:1px solid transparent; transition:all .3s; }
-    #nav.s { background:rgba(8,8,8,.92); backdrop-filter:blur(28px); -webkit-backdrop-filter:blur(28px); border-bottom-color:rgba(180,200,255,.08); padding:15px 0; }
+    #nav.s { background:rgba(6,11,24,.94); backdrop-filter:blur(28px); -webkit-backdrop-filter:blur(28px); border-bottom-color:rgba(154,184,208,.08); padding:15px 0; }
     .nav-i { display:flex; align-items:center; justify-content:space-between; gap:20px; }
     .logo { display:inline-flex; align-items:center; }
     .logo img { height:60px; width:auto; display:block; }
@@ -119,14 +119,40 @@
 
     /* HERO */
     .hero { padding:158px 0 96px; position:relative; overflow:hidden; }
-    .hero::before { content:''; position:absolute; top:-10%; left:50%; transform:translateX(-50%); width:900px; height:560px; background:radial-gradient(ellipse at center, rgba(255,107,0,.04) 0%, transparent 68%); pointer-events:none; }
+    .hero::before { content:''; position:absolute; top:-10%; left:50%; transform:translateX(-50%); width:900px; height:560px; background:radial-gradient(ellipse at center, rgba(154,184,208,.04) 0%, transparent 68%); pointer-events:none; }
+
+    /* GEOMETRIC PANELS (Ali Nikfar style) */
+    .hero-geo { position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:0; }
+    .geo-dots {
+      position:absolute; top:0; right:0; width:50%; height:100%;
+      background-image: radial-gradient(circle, rgba(154,184,208,.16) 1px, transparent 1px);
+      background-size: 22px 22px;
+      clip-path: polygon(18% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+    .geo-panel-dark {
+      position:absolute; top:0; right:0; width:52%; height:100%;
+      background: linear-gradient(165deg, #0c1d3e 0%, #091530 50%, #070e22 100%);
+      clip-path: polygon(22% 0%, 100% 0%, 100% 100%, 5% 100%);
+    }
+    .geo-panel-silver {
+      position:absolute; top:0; right:0; width:34%; height:100%;
+      background: linear-gradient(160deg, #5a7a95 0%, #8aaac0 18%, #c4d8e8 38%, #e0eaf4 50%, #c0d4e4 62%, #8aaac0 80%, #5a7a95 100%);
+      clip-path: polygon(28% 0%, 100% 0%, 100% 100%, 14% 100%);
+      opacity:.75;
+    }
+    .geo-shine {
+      position:absolute; top:0; right:0; width:34%; height:100%;
+      background: linear-gradient(160deg, transparent 30%, rgba(255,255,255,.08) 48%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.08) 52%, transparent 68%);
+      clip-path: polygon(28% 0%, 100% 0%, 100% 100%, 14% 100%);
+    }
+    .hero-geo-inner { position:relative; z-index:1; }
     .hero-eyebrow { margin-bottom:26px; }
     .hero h1 { font-family:var(--font-d); font-size:clamp(44px,6vw,76px); font-weight:900; letter-spacing:-.02em; line-height:1.1; margin-bottom:22px; }
     .hero h1 em { color:var(--accent); font-style:italic; }
     .hero-sub { font-size:17px; color:var(--text-muted); max-width:500px; margin-bottom:34px; line-height:1.65; }
     .hero-bullets { list-style:none; display:flex; flex-direction:column; gap:15px; margin-bottom:40px; }
     .bullet { display:flex; align-items:flex-start; gap:14px; }
-    .bullet-ico { width:40px; height:40px; border-radius:10px; background:var(--accent-dim); border:1px solid rgba(255,107,0,.16); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+    .bullet-ico { width:40px; height:40px; border-radius:10px; background:var(--accent-dim); border:1px solid rgba(154,184,208,.16); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
     .bullet-ico svg { width:17px; height:17px; color:var(--accent); }
     .bullet-txt strong { display:block; font-size:14.5px; font-weight:600; color:var(--text); margin-bottom:1px; }
     .bullet-txt span { font-size:13px; color:var(--text-muted); }
@@ -349,7 +375,13 @@
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="wrap">
+  <div class="hero-geo" aria-hidden="true">
+    <div class="geo-dots"></div>
+    <div class="geo-panel-dark"></div>
+    <div class="geo-panel-silver"></div>
+    <div class="geo-shine"></div>
+  </div>
+  <div class="wrap hero-geo-inner">
     <div class="hero-eyebrow reveal">
       <span class="badge">
         <svg viewBox="0 0 24 24" fill="currentColor" width="11" height="11"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
