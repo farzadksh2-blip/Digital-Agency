@@ -347,6 +347,43 @@
       .ft-top { grid-template-columns:1fr; gap:28px; }
       .hero-geo { display:none; }
     }
+
+    /* ── MOBILE INTRO ── */
+    #intro {
+      position:fixed; inset:0; z-index:9999;
+      background:var(--bg);
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px;
+      transition:opacity .55s ease;
+    }
+    #intro-logo-wrap {
+      opacity:0;
+      transform:scale(.78) translateY(18px);
+      transition:opacity .7s ease, transform .7s cubic-bezier(.22,.9,.36,1);
+    }
+    #intro-logo-wrap.show {
+      opacity:1;
+      transform:scale(1) translateY(0);
+    }
+    #intro-logo-wrap img { width:140px; height:auto; display:block; }
+
+    #intro-bar-wrap {
+      width:60px; height:2px;
+      background:rgba(154,184,208,.12);
+      border-radius:2px;
+      overflow:hidden;
+      opacity:0;
+      transition:opacity .4s ease .3s;
+    }
+    #intro-bar-wrap.show { opacity:1; }
+    #intro-bar {
+      height:100%; width:0%;
+      background:linear-gradient(90deg,#9ab8d0,#cce4f4);
+      border-radius:2px;
+      transition:width 1.1s cubic-bezier(.4,0,.2,1);
+    }
+    #intro-bar.fill { width:100%; }
+
+    #intro.out { opacity:0; pointer-events:none; }
   </style>
 </head>
 <body>
@@ -998,6 +1035,44 @@
       btn.disabled = false;
       alert('Something went wrong. Please try again.');
     }
+  }
+
+  /* MOBILE INTRO */
+  if (window.innerWidth <= 768) {
+    document.body.style.overflow = 'hidden';
+
+    const inEl = document.createElement('div');
+    inEl.id = 'intro';
+    inEl.innerHTML =
+      '<div id="intro-logo-wrap"><img src="logo.svg" alt="DesignHaus Studio"></div>' +
+      '<div id="intro-bar-wrap"><div id="intro-bar"></div></div>';
+    document.body.prepend(inEl);
+
+    // step 1: logo appears
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.getElementById('intro-logo-wrap').classList.add('show');
+        document.getElementById('intro-bar-wrap').classList.add('show');
+      });
+    });
+
+    // step 2: progress bar fills
+    setTimeout(() => {
+      document.getElementById('intro-bar').classList.add('fill');
+    }, 180);
+
+    // step 3: fade out overlay, reveal content
+    setTimeout(() => {
+      inEl.classList.add('out');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        inEl.remove();
+        document.querySelectorAll('.reveal').forEach(el => {
+          if (el.getBoundingClientRect().top < window.innerHeight + 60)
+            el.classList.add('in');
+        });
+      }, 580);
+    }, 1700);
   }
 
   /* HAMBURGER */
