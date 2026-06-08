@@ -124,30 +124,35 @@
     /* GEOMETRIC PANELS (Ali Nikfar style) */
     .hero-geo { position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:0; }
     .geo-dots {
-      position:absolute; top:0; right:0; width:50%; height:100%;
-      background-image: radial-gradient(circle, rgba(154,184,208,.16) 1px, transparent 1px);
+      position:absolute; top:0; right:0; width:46%; height:100%;
+      background-image: radial-gradient(circle, rgba(154,184,208,.08) 1px, transparent 1px);
       background-size: 22px 22px;
       clip-path: polygon(18% 0%, 100% 0%, 100% 100%, 0% 100%);
     }
     .geo-panel-dark {
       position:absolute; top:0; right:0; width:52%; height:100%;
-      background: linear-gradient(165deg, #0c1d3e 0%, #091530 50%, #070e22 100%);
+      background: linear-gradient(165deg, #0c1d3a 0%, #091428 50%, #060c1c 100%);
       clip-path: polygon(22% 0%, 100% 0%, 100% 100%, 5% 100%);
     }
     .geo-panel-silver {
-      position:absolute; top:0; right:0; width:34%; height:100%;
-      background: linear-gradient(160deg, #5a7a95 0%, #8aaac0 18%, #c4d8e8 38%, #e0eaf4 50%, #c0d4e4 62%, #8aaac0 80%, #5a7a95 100%);
+      position:absolute; top:0; right:0; width:32%; height:100%;
+      background: linear-gradient(160deg, #0e1c32 0%, #142438 30%, #1a2e48 55%, #142438 75%, #0e1c32 100%);
       clip-path: polygon(28% 0%, 100% 0%, 100% 100%, 14% 100%);
-      opacity:.75;
     }
     .geo-shine {
-      position:absolute; top:0; right:0; width:34%; height:100%;
-      background: linear-gradient(160deg, transparent 30%, rgba(255,255,255,.08) 48%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.08) 52%, transparent 68%);
+      position:absolute; top:0; right:0; width:32%; height:100%;
+      background: linear-gradient(160deg, transparent 35%, rgba(154,184,208,.06) 47%, rgba(180,210,235,.10) 50%, rgba(154,184,208,.06) 53%, transparent 65%);
       clip-path: polygon(28% 0%, 100% 0%, 100% 100%, 14% 100%);
+    }
+    /* thin metallic edge line on the silver panel's left diagonal */
+    .geo-edge {
+      position:absolute; top:0; right:calc(32% - 2px); width:3px; height:100%;
+      background: linear-gradient(180deg, transparent 0%, rgba(154,184,208,.35) 20%, rgba(200,224,240,.55) 50%, rgba(154,184,208,.35) 80%, transparent 100%);
+      transform: skewX(-10deg);
     }
     .hero-geo-inner { position:relative; z-index:1; }
     .hero-eyebrow { margin-bottom:26px; }
-    .hero h1 { font-family:var(--font-d); font-size:clamp(44px,6vw,76px); font-weight:900; letter-spacing:-.02em; line-height:1.1; margin-bottom:22px; }
+    .hero h1 { font-family:var(--font-d); font-size:clamp(30px,4vw,54px); font-weight:900; letter-spacing:-.02em; line-height:1.12; margin-bottom:20px; }
     .hero h1 em { color:var(--accent); font-style:italic; }
     .hero-sub { font-size:17px; color:var(--text-muted); max-width:500px; margin-bottom:34px; line-height:1.65; }
     .hero-bullets { list-style:none; display:flex; flex-direction:column; gap:15px; margin-bottom:40px; }
@@ -380,6 +385,7 @@
     <div class="geo-panel-dark"></div>
     <div class="geo-panel-silver"></div>
     <div class="geo-shine"></div>
+    <div class="geo-edge"></div>
   </div>
   <div class="wrap hero-geo-inner">
     <div class="hero-eyebrow reveal">
