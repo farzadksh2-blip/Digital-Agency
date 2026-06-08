@@ -520,17 +520,22 @@
 
       <!-- Napoli Nero -->
       <a href="https://napolinero.designhausstudio.studio/" target="_blank" rel="noopener noreferrer"
-        style="border-radius:var(--radius);overflow:hidden;display:block;text-decoration:none;position:relative;aspect-ratio:16/9;background:#0a0a0a;border:1px solid var(--border);transition:transform .3s,box-shadow .3s;"
-        onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,.5)'"
-        onmouseout="this.style.transform='';this.style.boxShadow=''">
-        <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0c0800 0%,#1a0f00 40%,#2a1500 100%);display:flex;align-items:center;justify-content:center;">
-          <span style="font-family:var(--font-d);font-size:clamp(28px,4vw,48px);font-weight:900;color:rgba(255,200,80,.15);letter-spacing:.05em;">NAPOLI NERO</span>
-        </div>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(8,6,0,.95) 0%,rgba(8,6,0,.2) 60%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;">
-          <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,200,80,.6);margin-bottom:6px;">Website Design</p>
+        style="border-radius:var(--radius);overflow:hidden;display:block;text-decoration:none;position:relative;aspect-ratio:16/9;background:#0c0800;border:1px solid var(--border);transition:transform .3s,box-shadow .3s;"
+        onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,.6)';this.querySelector('.proj-overlay').style.opacity='1'"
+        onmouseout="this.style.transform='';this.style.boxShadow='';this.querySelector('.proj-overlay').style.opacity='0'">
+        <img src="https://image.thum.io/get/width/1200/crop/675/noanimate/https://napolinero.designhausstudio.studio/"
+          alt="Napoli Nero website screenshot"
+          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .5s ease;"
+          loading="lazy">
+        <!-- always-on bottom gradient for labels -->
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(6,4,0,.92) 0%,rgba(6,4,0,.3) 45%,transparent 100%);pointer-events:none;"></div>
+        <!-- hover tint -->
+        <div class="proj-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.18);opacity:0;transition:opacity .3s;pointer-events:none;"></div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:22px;pointer-events:none;">
+          <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,200,80,.75);margin-bottom:5px;">Website Design</p>
           <div style="display:flex;align-items:center;justify-content:space-between;">
             <h3 style="font-family:var(--font-d);font-weight:700;font-size:18px;color:#fff;">Napoli Nero</h3>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,200,80,.8)" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,200,80,.9)" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
           </div>
           <p style="font-size:12.5px;color:rgba(255,255,255,.5);margin-top:4px;">Luxury Italian pizza restaurant — dark cinematic design with GSAP animations.</p>
         </div>
@@ -538,17 +543,20 @@
 
       <!-- Portfolio -->
       <a href="https://www.designhausstudio.studio/" target="_blank" rel="noopener noreferrer"
-        style="border-radius:var(--radius);overflow:hidden;display:block;text-decoration:none;position:relative;aspect-ratio:16/9;background:#0a0a0a;border:1px solid var(--border);transition:transform .3s,box-shadow .3s;"
-        onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,.5)'"
-        onmouseout="this.style.transform='';this.style.boxShadow=''">
-        <div style="position:absolute;inset:0;background:linear-gradient(135deg,#060810 0%,#0a0f1c 40%,#0d1428 100%);display:flex;align-items:center;justify-content:center;">
-          <span style="font-family:var(--font-d);font-size:clamp(20px,3vw,36px);font-weight:900;color:rgba(100,140,255,.12);letter-spacing:.05em;">DESIGNHAUS STUDIO</span>
-        </div>
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(6,8,16,.95) 0%,rgba(6,8,16,.2) 60%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;">
-          <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(120,160,255,.6);margin-bottom:6px;">Portfolio Website</p>
+        style="border-radius:var(--radius);overflow:hidden;display:block;text-decoration:none;position:relative;aspect-ratio:16/9;background:#060810;border:1px solid var(--border);transition:transform .3s,box-shadow .3s;"
+        onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 60px rgba(0,0,0,.6)';this.querySelector('.proj-overlay').style.opacity='1'"
+        onmouseout="this.style.transform='';this.style.boxShadow='';this.querySelector('.proj-overlay').style.opacity='0'">
+        <img src="https://image.thum.io/get/width/1200/crop/675/noanimate/https://www.designhausstudio.studio/"
+          alt="DesignHaus Studio portfolio screenshot"
+          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .5s ease;"
+          loading="lazy">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(4,6,14,.92) 0%,rgba(4,6,14,.3) 45%,transparent 100%);pointer-events:none;"></div>
+        <div class="proj-overlay" style="position:absolute;inset:0;background:rgba(0,0,0,.18);opacity:0;transition:opacity .3s;pointer-events:none;"></div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:22px;pointer-events:none;">
+          <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(120,160,255,.75);margin-bottom:5px;">Portfolio Website</p>
           <div style="display:flex;align-items:center;justify-content:space-between;">
             <h3 style="font-family:var(--font-d);font-weight:700;font-size:18px;color:#fff;">Farzad Shahidi — Portfolio</h3>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(120,160,255,.8)" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(120,160,255,.9)" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
           </div>
           <p style="font-size:12.5px;color:rgba(255,255,255,.5);margin-top:4px;">Personal portfolio — dark luxury multi-page site with Framer Motion & GSAP animations.</p>
         </div>
