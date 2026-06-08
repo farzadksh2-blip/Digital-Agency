@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DesignHaus Studio — Web Design & SEO Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080808;
+      --bg-deep: #050505;
+      --border: rgba(180,200,255,0.10);
+      --border-hover: rgba(180,200,255,0.22);
+      --text: #E4ECFF;
+      --text-muted: #6B7BA8;
+      --text-dim: #3A4466;
+      --accent: #FF6B00;
+      --accent-dim: rgba(255,107,0,0.10);
+      --accent-hover: #E85F00;
+      --radius: 16px;
+      --font-d: 'Roboto', sans-serif;
+      --font-b: 'Roboto', sans-serif;
+      --glass-bg: linear-gradient(145deg, rgba(5,5,10,0.52) 0%, rgba(3,3,7,0.65) 100%) padding-box,
+                  linear-gradient(135deg,
+                    rgba(210,220,255,0.50) 0%,
+                    rgba(140,160,230,0.12) 30%,
+                    rgba(100,120,200,0.06) 55%,
+                    rgba(190,210,255,0.22) 80%,
+                    rgba(220,228,255,0.50) 100%
+                  ) border-box;
+      --glass-bg-hover: linear-gradient(145deg, rgba(7,7,16,0.62) 0%, rgba(4,4,10,0.75) 100%) padding-box,
+                  linear-gradient(135deg,
+                    rgba(230,238,255,0.75) 0%,
+                    rgba(165,185,245,0.20) 30%,
+                    rgba(120,145,215,0.08) 55%,
+                    rgba(210,225,255,0.35) 80%,
+                    rgba(240,244,255,0.75) 100%
+                  ) border-box;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--font-b); font-size:16px; line-height:1.65; -webkit-font-smoothing:antialiased; font-weight:400; overflow-x:hidden; }
+
+    /* ANIMATED BACKGROUND */
+    #bg-canvas { position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; background:#080808; }
+    .orb { position:absolute; border-radius:50%; will-change:transform; }
+    .orb-1 { width:780px; height:780px; background:radial-gradient(circle at 50% 50%,#0c1b4a 0%,#070e2a 40%,transparent 70%); filter:blur(100px); top:0%; left:-5%; opacity:.80; animation:drift1 22s ease-in-out infinite; }
+    .orb-2 { width:660px; height:660px; background:radial-gradient(circle at 50% 50%,#101438 0%,#080a22 40%,transparent 70%); filter:blur(110px); top:35%; right:-6%; opacity:.75; animation:drift2 28s ease-in-out infinite; }
+    .orb-3 { width:580px; height:580px; background:radial-gradient(circle at 50% 50%,#091742 0%,#050c2c 40%,transparent 70%); filter:blur(105px); bottom:8%; left:18%; opacity:.72; animation:drift3 24s ease-in-out infinite; }
+    .orb-4 { width:440px; height:440px; background:radial-gradient(circle at 50% 50%,#0e1640 0%,transparent 70%); filter:blur(85px); top:55%; left:45%; opacity:.60; animation:drift4 32s ease-in-out infinite; }
+    .orb-5 { width:260px; height:260px; background:radial-gradient(circle at 50% 50%,rgba(255,107,0,.12) 0%,transparent 70%); filter:blur(60px); top:20%; left:55%; opacity:1; animation:drift5 19s ease-in-out infinite; }
+
+    @keyframes drift1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(80px,70px) scale(1.08)} 66%{transform:translate(-50px,100px) scale(0.94)} }
+    @keyframes drift2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-70px,-80px) scale(1.10)} 66%{transform:translate(90px,50px) scale(0.96)} }
+    @keyframes drift3 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(60px,-60px) scale(1.06)} 66%{transform:translate(-90px,70px) scale(0.97)} }
+    @keyframes drift4 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-80px,-60px)} }
+    @keyframes drift5 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(40px,50px) scale(1.2)} }
+
+    /* GLASS CARD */
+    .glass {
+      background: var(--glass-bg);
+      border: 1px solid transparent;
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
+    }
+    .glass:hover {
+      background: var(--glass-bg-hover);
+      box-shadow: 0 8px 48px rgba(0,0,40,.5), 0 0 0 1px rgba(220,228,255,.12);
+    }
+    .glass::after {
+      content:'';
+      position:absolute;
+      top:0; left:8%; right:8%;
+      height:1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(210,220,255,.6) 30%, rgba(255,255,255,.9) 50%, rgba(210,220,255,.6) 70%, transparent 100%);
+      border-radius:0 0 2px 2px;
+      opacity:.6;
+      pointer-events:none;
+    }
+    .glass { position:relative; }
+
+    /* UTILITY */
+    .wrap { max-width:1160px; margin:0 auto; padding:0 28px; }
+    .label { font-size:11.5px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--text-muted); margin-bottom:14px; }
+    .badge { display:inline-flex; align-items:center; gap:6px; padding:5px 14px; border-radius:100px; font-size:12.5px; font-weight:600; letter-spacing:.03em; background:var(--accent-dim); color:var(--accent); border:1px solid rgba(255,107,0,.20); }
+    a { text-decoration:none; }
+
+    .btn { display:inline-flex; align-items:center; gap:8px; padding:13px 26px; border-radius:100px; font-family:var(--font-b); font-size:14.5px; font-weight:500; cursor:pointer; border:none; transition:all .2s; white-space:nowrap; }
+    .btn svg { width:15px; height:15px; }
+    .btn-p { background:var(--accent); color:#080808; font-weight:700; }
+    .btn-p:hover { background:var(--accent-hover); transform:translateY(-2px); box-shadow:0 8px 24px rgba(255,107,0,.25); }
+    .btn-o { background:transparent; color:var(--text); border:1px solid var(--border-hover); }
+    .btn-o:hover { background:rgba(180,200,255,.06); border-color:rgba(200,215,255,.3); transform:translateY(-2px); }
+
+    .reveal { opacity:0; transform:translateY(22px); transition:opacity .65s ease, transform .65s ease; }
+    .reveal.in { opacity:1; transform:translateY(0); }
+    .reveal-d1 { transition-delay:.1s; }
+    .reveal-d2 { transition-delay:.2s; }
+
+    /* NAV */
+    #nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:22px 0; border-bottom:1px solid transparent; transition:all .3s; }
+    #nav.s { background:rgba(8,8,8,.92); backdrop-filter:blur(28px); -webkit-backdrop-filter:blur(28px); border-bottom-color:rgba(180,200,255,.08); padding:15px 0; }
+    .nav-i { display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .logo { font-family:var(--font-d); font-size:20px; font-weight:900; color:var(--text); letter-spacing:-.01em; white-space:nowrap; }
+    .logo em { color:var(--accent); font-style:normal; }
+    .nav-links { display:flex; align-items:center; gap:28px; list-style:none; }
+    .nav-links a { font-size:13.5px; font-weight:500; color:var(--text-muted); transition:color .2s; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-r { display:flex; align-items:center; gap:10px; }
+    .nav-tel { font-size:13.5px; color:var(--text-muted); display:flex; align-items:center; gap:5px; transition:color .2s; white-space:nowrap; }
+    .nav-tel:hover { color:var(--text); }
+    .nav-tel svg { width:14px; height:14px; }
+    .ham { display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:4px; }
+    .ham span { width:22px; height:1.5px; background:var(--text); border-radius:2px; display:block; transition:all .3s; }
+
+    /* HERO */
+    .hero { padding:158px 0 96px; position:relative; overflow:hidden; }
+    .hero::before { content:''; position:absolute; top:-10%; left:50%; transform:translateX(-50%); width:900px; height:560px; background:radial-gradient(ellipse at center, rgba(255,107,0,.04) 0%, transparent 68%); pointer-events:none; }
+    .hero-eyebrow { margin-bottom:26px; }
+    .hero h1 { font-family:var(--font-d); font-size:clamp(44px,6vw,76px); font-weight:900; letter-spacing:-.02em; line-height:1.1; margin-bottom:22px; }
+    .hero h1 em { color:var(--accent); font-style:italic; }
+    .hero-sub { font-size:17px; color:var(--text-muted); max-width:500px; margin-bottom:34px; line-height:1.65; }
+    .hero-bullets { list-style:none; display:flex; flex-direction:column; gap:15px; margin-bottom:40px; }
+    .bullet { display:flex; align-items:flex-start; gap:14px; }
+    .bullet-ico { width:40px; height:40px; border-radius:10px; background:var(--accent-dim); border:1px solid rgba(255,107,0,.16); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px; }
+    .bullet-ico svg { width:17px; height:17px; color:var(--accent); }
+    .bullet-txt strong { display:block; font-size:14.5px; font-weight:600; color:var(--text); margin-bottom:1px; }
+    .bullet-txt span { font-size:13px; color:var(--text-muted); }
+    .hero-cta { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:28px; }
+    .hero-pills { display:flex; align-items:center; gap:22px; flex-wrap:wrap; }
+    .hero-pill { font-size:13px; color:var(--text-muted); display:flex; align-items:center; gap:5px; border-bottom:1px solid var(--border-hover); padding-bottom:1px; transition:all .2s; }
+    .hero-pill:hover { color:var(--text); border-bottom-color:rgba(200,215,255,.35); }
+    .hero-pill svg { width:12px; height:12px; }
+
+    .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; border-radius:var(--radius); overflow:hidden; margin-top:72px; border:1px solid transparent;
+      background: linear-gradient(rgba(5,9,25,0.80),rgba(5,9,25,0.80)) padding-box,
+                  linear-gradient(135deg, rgba(210,220,255,.5) 0%, rgba(140,160,230,.1) 50%, rgba(210,220,255,.5) 100%) border-box; }
+    .stat { padding:26px 20px; text-align:center; background:rgba(5,5,10,.50); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); }
+    .stat-n { font-family:var(--font-d); font-size:38px; font-weight:900; color:var(--text); letter-spacing:-.02em; line-height:1; margin-bottom:5px; }
+    .stat-n em { color:var(--accent); font-style:normal; }
+    .stat-l { font-size:12.5px; color:var(--text-muted); }
+
+    /* LOGOS */
+    .logos { padding:52px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .logos-lbl { text-align:center; font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--text-dim); margin-bottom:28px; }
+    .logos-wrap { overflow:hidden; mask:linear-gradient(to right,transparent,black 8%,black 92%,transparent); }
+    .logos-track { display:flex; gap:56px; animation:scroll 28s linear infinite; width:max-content; align-items:center; }
+    .logos-track:hover { animation-play-state:paused; }
+    .logo-name { font-family:var(--font-d); font-size:15.5px; font-weight:700; color:var(--text-dim); white-space:nowrap; letter-spacing:.01em; display:flex; align-items:center; gap:8px; }
+    .logo-dot { width:5px; height:5px; border-radius:50%; background:currentColor; opacity:.4; }
+    @keyframes scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+    section { padding:92px 0; }
+
+    /* FAQ SHORT */
+    .faq-short { padding:80px 0; }
+    .fqs-grid { display:grid; grid-template-columns:1fr 2fr; gap:72px; align-items:start; }
+    .fqs-left h2 { font-family:var(--font-d); font-size:36px; font-weight:900; letter-spacing:-.02em; line-height:1.18; margin-bottom:14px; }
+    .fqs-left p { font-size:14.5px; color:var(--text-muted); line-height:1.6; }
+
+    /* ACCORDION */
+    .acc-item { border-bottom:1px solid var(--border); }
+    .acc-item:first-child { border-top:1px solid var(--border); }
+    .acc-btn { width:100%; display:flex; align-items:center; justify-content:space-between; gap:14px; padding:20px 0; background:none; border:none; cursor:pointer; text-align:left; font-family:var(--font-b); font-size:15px; font-weight:500; color:var(--text); transition:color .2s; }
+    .acc-btn:hover { color:var(--accent); }
+    .acc-ico { width:27px; height:27px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all .3s; color:var(--text-muted); }
+    .acc-ico svg { width:11px; height:11px; }
+    .acc-item.open .acc-ico { background:var(--accent-dim); border-color:rgba(255,107,0,.2); color:var(--accent); transform:rotate(45deg); }
+    .acc-body { overflow:hidden; max-height:0; transition:max-height .35s ease; }
+    .acc-body-inner { padding-bottom:20px; font-size:14.5px; color:var(--text-muted); line-height:1.7; }
+
+    /* SERVICES */
+    .sec-hdr { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:48px; flex-wrap:wrap; }
+    .sec-hdr h2 { font-family:var(--font-d); font-size:clamp(30px,4vw,50px); font-weight:900; letter-spacing:-.02em; line-height:1.12; max-width:380px; }
+    .sec-hdr p { font-size:14.5px; color:var(--text-muted); max-width:300px; line-height:1.65; }
+    .svc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .svc { border-radius:var(--radius); padding:34px 30px; }
+    .svc.glass:hover { transform:translateY(-4px); }
+    .svc-ico { width:50px; height:50px; border-radius:11px; border:1px solid var(--border); background:rgba(180,200,255,.04); display:flex; align-items:center; justify-content:center; margin-bottom:22px; transition:all .25s; }
+    .svc-ico svg { width:21px; height:21px; color:var(--text-muted); transition:color .25s; }
+    .svc:hover .svc-ico { background:var(--accent-dim); border-color:rgba(255,107,0,.18); }
+    .svc:hover .svc-ico svg { color:var(--accent); }
+    .svc h3 { font-family:var(--font-d); font-size:18.5px; font-weight:700; letter-spacing:-.01em; margin-bottom:10px; }
+    .svc p { font-size:13.5px; color:var(--text-muted); line-height:1.65; margin-bottom:20px; }
+    .svc ul { list-style:none; display:flex; flex-direction:column; gap:7px; }
+    .svc ul li { font-size:13px; color:var(--text-muted); display:flex; align-items:flex-start; gap:7px; line-height:1.4; }
+    .svc ul li::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--accent); flex-shrink:0; margin-top:6px; }
+
+    /* CASES */
+    .cases-hdr { margin-bottom:44px; }
+    .cases-hdr h2 { font-family:var(--font-d); font-size:clamp(30px,4vw,50px); font-weight:900; letter-spacing:-.02em; line-height:1.12; margin-bottom:14px; }
+    .cases-hdr p { font-size:14.5px; color:var(--text-muted); max-width:460px; }
+    .cases-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .case { border-radius:var(--radius); padding:32px 28px; display:flex; flex-direction:column; gap:16px; cursor:pointer; }
+    .case.glass:hover { transform:translateY(-6px); }
+    .case-tag { font-size:11.5px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--text-dim); }
+    .case-num { font-family:var(--font-d); font-size:44px; font-weight:900; letter-spacing:-.03em; line-height:1; color:var(--accent); }
+    .case-title { font-size:16.5px; font-weight:600; color:var(--text); line-height:1.4; }
+    .case-desc { font-size:13px; color:var(--text-muted); line-height:1.6; }
+    .case-link { font-size:12.5px; font-weight:500; color:var(--text-muted); display:flex; align-items:center; gap:5px; margin-top:auto; transition:color .2s; }
+    .case-link svg { width:12px; height:12px; }
+    .case:hover .case-link { color:var(--accent); }
+
+    /* PROCESS */
+    .proc-sec { padding:92px 0; }
+    .proc-hdr { display:grid; grid-template-columns:1fr 1fr; gap:56px; margin-bottom:68px; align-items:end; }
+    .proc-hdr h2 { font-family:var(--font-d); font-size:clamp(30px,4vw,50px); font-weight:900; letter-spacing:-.02em; line-height:1.12; }
+    .proc-hdr p { font-size:14.5px; color:var(--text-muted); line-height:1.65; }
+    .proc-steps { display:grid; grid-template-columns:repeat(4,1fr); position:relative; }
+    .proc-steps::before { content:''; position:absolute; top:27px; left:calc(12.5% + 14px); right:calc(12.5% + 14px); height:1px; background:linear-gradient(to right, var(--accent) 0%, rgba(180,200,255,.15) 100%); }
+    .proc-step { padding:0 18px; display:flex; flex-direction:column; gap:14px; }
+    .proc-step:first-child { padding-left:0; }
+    .proc-step:last-child { padding-right:0; }
+    .step-n { width:54px; height:54px; border-radius:50%; border:1px solid var(--border); background:rgba(12,20,55,.8); display:flex; align-items:center; justify-content:center; font-family:var(--font-d); font-size:17px; font-weight:700; color:var(--text-muted); position:relative; z-index:1; transition:all .3s; backdrop-filter:blur(12px); }
+    .proc-step:hover .step-n { background:var(--accent); color:#080808; border-color:var(--accent); box-shadow:0 0 24px rgba(255,107,0,.3); }
+    .step-t { font-family:var(--font-d); font-size:17px; font-weight:700; letter-spacing:-.01em; color:var(--text); margin-top:10px; }
+    .step-d { font-size:13px; color:var(--text-muted); line-height:1.65; }
+
+    /* WHY */
+    .why-hdr { text-align:center; margin-bottom:52px; }
+    .why-hdr h2 { font-family:var(--font-d); font-size:clamp(30px,4vw,50px); font-weight:900; letter-spacing:-.02em; line-height:1.12; margin-bottom:14px; }
+    .why-hdr p { font-size:14.5px; color:var(--text-muted); max-width:460px; margin:0 auto; }
+    .why-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+    .why { border-radius:var(--radius); padding:26px 22px; }
+    .why-ico { width:44px; height:44px; border-radius:10px; border:1px solid var(--border); background:rgba(180,200,255,.04); display:flex; align-items:center; justify-content:center; margin-bottom:18px; transition:all .25s; }
+    .why-ico svg { width:19px; height:19px; color:var(--text-muted); transition:color .25s; }
+    .why:hover .why-ico { background:var(--accent-dim); border-color:rgba(255,107,0,.18); }
+    .why:hover .why-ico svg { color:var(--accent); }
+    .why h4 { font-weight:700; font-size:15.5px; margin-bottom:9px; }
+    .why p { font-size:13px; color:var(--text-muted); line-height:1.6; }
+
+    /* REVIEWS */
+    .rev-hdr { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:44px; flex-wrap:wrap; gap:20px; }
+    .rev-hdr h2 { font-family:var(--font-d); font-size:clamp(30px,4vw,50px); font-weight:900; letter-spacing:-.02em; line-height:1.12; }
+    .rev-score { display:flex; align-items:center; gap:12px; }
+    .rscore { font-family:var(--font-d); font-size:30px; font-weight:900; }
+    .rstar { display:flex; gap:3px; }
+    .rstar svg { width:15px; height:15px; color:#FACC15; }
+    .rmeta { font-size:12px; color:var(--text-muted); margin-top:3px; }
+    .rev-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .rev { border-radius:var(--radius); padding:26px; display:flex; flex-direction:column; gap:14px; }
+    .rev-stars { display:flex; gap:2px; }
+    .rev-stars svg { width:13px; height:13px; color:#FACC15; }
+    .rev-txt { font-size:13.5px; color:var(--text-muted); line-height:1.65; flex-grow:1; }
+    .rev-auth { display:flex; align-items:center; gap:10px; }
+    .rev-av { width:35px; height:35px; border-radius:50%; background:var(--accent-dim); border:1px solid rgba(255,107,0,.18); display:flex; align-items:center; justify-content:center; font-family:var(--font-d); font-size:13px; font-weight:700; color:var(--accent); flex-shrink:0; }
+    .rev-name { font-weight:600; font-size:13.5px; }
+    .rev-role { font-size:11.5px; color:var(--text-dim); }
+
+    /* FAQ FULL */
+    .faq-hdr { text-align:center; margin-bottom:52px; }
+    .faq-hdr h2 { font-family:var(--font-d); font-size:clamp(30px,4vw,50px); font-weight:900; letter-spacing:-.02em; margin-bottom:10px; }
+    .faq-hdr p { font-size:14.5px; color:var(--text-muted); }
+    .faq-list { max-width:740px; margin:0 auto; }
+
+    /* CTA */
+    .cta-wrap { border-radius:22px; padding:68px 60px; text-align:center; position:relative; overflow:hidden; }
+    .cta-wrap::before { content:''; position:absolute; top:-30%; left:50%; transform:translateX(-50%); width:600px; height:400px; background:radial-gradient(ellipse, rgba(255,107,0,.07) 0%, transparent 70%); pointer-events:none; }
+    .cta-wrap h2 { font-family:var(--font-d); font-size:clamp(34px,5vw,62px); font-weight:900; letter-spacing:-.03em; line-height:1.07; margin-bottom:18px; max-width:560px; margin-left:auto; margin-right:auto; position:relative; z-index:1; }
+    .cta-wrap p { font-size:15.5px; color:var(--text-muted); max-width:400px; margin:0 auto 36px; position:relative; z-index:1; }
+    .cta-btns { display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; position:relative; z-index:1; }
+
+    /* FOOTER */
+    footer { border-top:1px solid var(--border); padding:68px 0 36px; }
+    .ft-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:44px; padding-bottom:52px; border-bottom:1px solid var(--border); margin-bottom:28px; }
+    .ft-brand .logo { display:block; margin-bottom:14px; }
+    .ft-brand p { font-size:13.5px; color:var(--text-muted); line-height:1.65; max-width:260px; margin-bottom:22px; }
+    .ft-soc { display:flex; gap:8px; }
+    .soc-btn { width:34px; height:34px; border-radius:8px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--text-muted); transition:all .2s; }
+    .soc-btn:hover { border-color:var(--border-hover); color:var(--text); background:rgba(180,200,255,.05); }
+    .soc-btn svg { width:14px; height:14px; }
+    .ft-col h4 { font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--text-dim); margin-bottom:18px; }
+    .ft-links { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .ft-links a { font-size:13.5px; color:var(--text-muted); transition:color .2s; }
+    .ft-links a:hover { color:var(--text); }
+    .ft-bot { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+    .ft-bot p { font-size:12.5px; color:var(--text-dim); }
+    .ft-leg { display:flex; gap:18px; }
+    .ft-leg a { font-size:12.5px; color:var(--text-dim); transition:color .2s; }
+    .ft-leg a:hover { color:var(--text-muted); }
+
+    /* RESPONSIVE */
+    @media (max-width:1024px) {
+      .svc-grid { grid-template-columns:repeat(2,1fr); }
+      .why-grid { grid-template-columns:repeat(2,1fr); }
+      .rev-grid { grid-template-columns:repeat(2,1fr); }
+      .ft-top { grid-template-columns:1fr 1fr; gap:32px; }
+      .proc-hdr { grid-template-columns:1fr; gap:20px; margin-bottom:48px; }
+      .proc-steps { grid-template-columns:repeat(2,1fr); gap:36px; }
+      .proc-steps::before { display:none; }
+      .fqs-grid { grid-template-columns:1fr; gap:36px; }
+    }
+    @media (max-width:768px) {
+      .hero { padding:128px 0 72px; }
+      .stats { grid-template-columns:repeat(2,1fr); }
+      .nav-links { display:none; }
+      .nav-tel { display:none; }
+      .ham { display:flex; }
+      .cases-grid, .svc-grid, .rev-grid, .why-grid { grid-template-columns:1fr; }
+      .sec-hdr { flex-direction:column; align-items:flex-start; }
+      .rev-hdr { flex-direction:column; align-items:flex-start; }
+      .cta-wrap { padding:44px 28px; }
+      .ft-top { grid-template-columns:1fr; gap:28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ANIMATED BG -->
+<div id="bg-canvas"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div><div class="orb orb-4"></div><div class="orb orb-5"></div></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="wrap">
+    <div class="nav-i">
+      <a href="#" class="logo">DesignHaus <em>Studio</em></a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#cases">Cases</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <div class="nav-r">
+        <a href="tel:+4921915655403" class="nav-tel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+          +49 2191 565 540
+        </a>
+        <a href="#contact" class="btn btn-p">Free Consultation</a>
+      </div>
+      <button class="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="wrap">
+    <div class="hero-eyebrow reveal">
+      <span class="badge">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="11" height="11"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+        4.9/5 · Trusted by 100+ businesses
+      </span>
+    </div>
+
+    <h1 class="reveal reveal-d1">Web Design & SEO<br>that <em>actually</em> converts.</h1>
+
+    <p class="hero-sub reveal reveal-d2">Clear strategy, measurable from day one. We turn website visitors into real customers — launch-ready base in 21 days.</p>
+
+    <ul class="hero-bullets reveal">
+      <li class="bullet">
+        <div class="bullet-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="bullet-txt"><strong>Launch in 21 Days</strong><span>Base ready, extensions in sprints. Complex projects by agreement.</span></div>
+      </li>
+      <li class="bullet">
+        <div class="bullet-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="bullet-txt"><strong>Measurable from Day 1</strong><span>GDPR-compliant tracking (server-side) without conversion data gaps.</span></div>
+      </li>
+      <li class="bullet">
+        <div class="bullet-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <div class="bullet-txt"><strong>100+ Projects · 4.9/5 Rating</strong><span>Experience you can feel, and results that are traceable.</span></div>
+      </li>
+    </ul>
+
+    <div class="hero-cta reveal">
+      <a href="#contact" class="btn btn-p">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg>
+        Book Free Consultation
+      </a>
+      <a href="#services" class="btn btn-o">View Services</a>
+    </div>
+
+    <div class="hero-pills reveal">
+      <a href="#seo" class="hero-pill">Free Google Visibility Check<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+      <a href="#ai" class="hero-pill">Free AI Visibility Analysis (GEO)<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+    </div>
+
+    <div class="stats reveal">
+      <div class="stat"><div class="stat-n" data-to="100">0<em>+</em></div><div class="stat-l">Projects</div></div>
+      <div class="stat"><div class="stat-n">4.9<em>/5</em></div><div class="stat-l">Rating</div></div>
+      <div class="stat"><div class="stat-n"><em>21</em></div><div class="stat-l">Days to Launch</div></div>
+      <div class="stat"><div class="stat-n">Day <em>1</em></div><div class="stat-l">Measurable</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGOS -->
+<div class="logos">
+  <div class="wrap"><p class="logos-lbl">Trusted by companies across the region and beyond</p></div>
+  <div class="logos-wrap">
+    <div class="logos-track">
+      <span class="logo-name"><span class="logo-dot"></span>Turkish Airlines</span>
+      <span class="logo-name"><span class="logo-dot"></span>WDR</span>
+      <span class="logo-name"><span class="logo-dot"></span>EA Sports</span>
+      <span class="logo-name"><span class="logo-dot"></span>Stadtwerke Düsseldorf</span>
+      <span class="logo-name"><span class="logo-dot"></span>IQOS</span>
+      <span class="logo-name"><span class="logo-dot"></span>Event Arena</span>
+      <span class="logo-name"><span class="logo-dot"></span>Human Bau</span>
+      <span class="logo-name"><span class="logo-dot"></span>Vice Media</span>
+      <span class="logo-name"><span class="logo-dot"></span>Ruhrklang</span>
+      <span class="logo-name"><span class="logo-dot"></span>Perrot</span>
+      <span class="logo-name"><span class="logo-dot"></span>Turkish Airlines</span>
+      <span class="logo-name"><span class="logo-dot"></span>WDR</span>
+      <span class="logo-name"><span class="logo-dot"></span>EA Sports</span>
+      <span class="logo-name"><span class="logo-dot"></span>Stadtwerke Düsseldorf</span>
+      <span class="logo-name"><span class="logo-dot"></span>IQOS</span>
+      <span class="logo-name"><span class="logo-dot"></span>Event Arena</span>
+      <span class="logo-name"><span class="logo-dot"></span>Human Bau</span>
+      <span class="logo-name"><span class="logo-dot"></span>Vice Media</span>
+      <span class="logo-name"><span class="logo-dot"></span>Ruhrklang</span>
+      <span class="logo-name"><span class="logo-dot"></span>Perrot</span>
+    </div>
+  </div>
+</div>
+
+<!-- SHORT FAQ -->
+<section class="faq-short" id="about">
+  <div class="wrap">
+    <div class="fqs-grid">
+      <div class="fqs-left reveal">
+        <p class="label">Quick Answers</p>
+        <h2>Frequently asked — briefly answered.</h2>
+        <p>Web design, SEO or AI? The overview that saves you time.</p>
+      </div>
+      <div class="reveal reveal-d1">
+        <div class="acc-item open">
+          <button class="acc-btn">What does DesignHaus Studio offer?<div class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></button>
+          <div class="acc-body" style="max-height:200px">
+            <div class="acc-body-inner">We build websites that get found — and actively control what comes next: more visibility, more enquiries, less guesswork. Not isolated measures, but a clear workflow that brings web design, SEO, advertising, and AI together so they reinforce each other and make results measurable.</div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn">Which companies is DesignHaus Studio right for?<div class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></button>
+          <div class="acc-body">
+            <div class="acc-body-inner">We work with established companies in retail, events, industry, and services — regionally and nationwide via remote. Whether web design, SEO, Google Ads, or AI automation: anyone already in the market who needs concrete enquiries and wants a reliable digital base will find the right partner.</div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn">How do all the services fit together?<div class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></button>
+          <div class="acc-body">
+            <div class="acc-body-inner">A new website brings nothing if nobody finds it. SEO brings little if the page doesn't convince. And advertising burns budget when tracking and landing page aren't right. We think web design, SEO, ads, and AI together from day one — and prioritize clearly where the greatest leverage lies for your business.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-hdr reveal">
+      <h2>Everything from<br>one source.</h2>
+      <p>All services for your digital success, perfectly coordinated for maximum impact.</p>
+    </div>
+    <div class="svc-grid reveal">
+      <div class="svc glass">
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <h3>Web Design & Shops</h3>
+        <p>Modern websites focused on performance, visibility, and conversion — launch-ready in 21 days.</p>
+        <ul><li>Design, texts & AI image generation included</li><li>Clear milestones & feedback rounds</li><li>Domain, hosting, email & SSL handled</li><li>Optional maintenance & updates</li></ul>
+      </div>
+      <div class="svc glass">
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <h3>SEO Optimization</h3>
+        <p>Search engine optimization that works. More visibility, traffic, and customers through sustainable strategy.</p>
+        <ul><li>Fast, error-free pages (technical SEO)</li><li>Relevant content & strong snippets</li><li>Local SEO for regional visibility</li><li>Monitoring & continuous optimization</li></ul>
+      </div>
+      <div class="svc glass">
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <h3>SEA / Google Ads</h3>
+        <p>Successful campaigns for immediate visibility. Targeted, cost-efficient, and fully measurable.</p>
+        <ul><li>Campaign setup & optimization</li><li>Keyword research & targeting</li><li>Conversion tracking & reporting</li><li>Budget optimization & ROI focus</li></ul>
+      </div>
+      <div class="svc glass">
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div>
+        <h3>IT & AI Integration</h3>
+        <p>Modern IT & AI automation for more efficiency. Optimize processes, reduce costs, shape the future.</p>
+        <ul><li>AI chatbots & customer service automation</li><li>Workflow optimization with AI tools</li><li>IT infrastructure & cloud migration</li><li>Custom AI solutions for your business</li></ul>
+      </div>
+      <div class="svc glass">
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+        <h3>Accessibility</h3>
+        <p>Greater reach through clear structure, readability, and accessibility for every user.</p>
+        <ul><li>Clear structure & logical content</li><li>Readability, contrast & font sizes</li><li>Keyboard navigation & focus guidance</li><li>Alt texts & understandable forms</li></ul>
+      </div>
+      <div class="svc glass">
+        <div class="svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <h3>Analytics & Tracking</h3>
+        <p>GDPR-compliant measurement without data gaps. Know exactly where your customers come from.</p>
+        <ul><li>Server-side tracking setup</li><li>Conversion funnels & attribution</li><li>Custom dashboards & reports</li><li>GA4 & Consent Mode v2</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="cases">
+  <div class="wrap">
+    <div class="cases-hdr reveal">
+      <p class="label">Case Studies</p>
+      <h2>Real results for local businesses.</h2>
+      <p>How we increase visibility and enquiries with measurable, trackable outcomes.</p>
+    </div>
+    <div class="cases-grid reveal">
+      <div class="case glass">
+        <span class="case-tag">Event Location · SEO Boost</span>
+        <div class="case-num">+379%</div>
+        <div class="case-title">Impressions in the first year</div>
+        <p class="case-desc">Technical fixes, content refreshes, and authority building for sustainable ranking jumps for Event Arena.</p>
+        <a href="#" class="case-link">View case study <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+      </div>
+      <div class="case glass">
+        <span class="case-tag">E-Commerce · SEA Performance</span>
+        <div class="case-num">10,906</div>
+        <div class="case-title">Sessions & 261 Orders</div>
+        <p class="case-desc">Full-service shop build with Performance Max, theme customizing, and campaigns from a single source.</p>
+        <a href="#" class="case-link">Project details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+      </div>
+      <div class="case glass">
+        <span class="case-tag">Healthcare · Digital Patient Journey</span>
+        <div class="case-num">100%</div>
+        <div class="case-title">Digital visibility achieved</div>
+        <p class="case-desc">Persona-driven UX, optimized web design, and intake automation — launched in 4 weeks.</p>
+        <a href="#" class="case-link">Discover results <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<div class="proc-sec" id="process">
+  <div class="wrap">
+    <div class="proc-hdr reveal">
+      <h2>Launch in four clear steps.</h2>
+      <p>A transparent process with defined milestones — so you always know exactly where we stand in your project.</p>
+    </div>
+    <div class="proc-steps reveal">
+      <div class="proc-step">
+        <div class="step-n">01</div>
+        <div class="step-t">Analysis & Goals</div>
+        <p class="step-d">We review current status, competition, and goals. This produces clear priorities for your project.</p>
+      </div>
+      <div class="proc-step">
+        <div class="step-n">02</div>
+        <div class="step-t">Concept & Structure</div>
+        <p class="step-d">Page structure, content, and design direction are clearly defined before we write a single line of code.</p>
+      </div>
+      <div class="proc-step">
+        <div class="step-n">03</div>
+        <div class="step-t">Implementation</div>
+        <p class="step-d">Web design, technology, and tracking fit together cleanly. Launch-ready base in 21 days.</p>
+      </div>
+      <div class="proc-step">
+        <div class="step-n">04</div>
+        <div class="step-t">Optimization</div>
+        <p class="step-d">Fine-tuning, testing, and content improvements ensure sustainable growth well beyond launch day.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY -->
+<section id="why">
+  <div class="wrap">
+    <div class="why-hdr reveal">
+      <p class="label">Why DesignHaus Studio</p>
+      <h2>Clear work, clear results.</h2>
+      <p>We care about every detail that separates a good website from a great one that actually generates leads.</p>
+    </div>
+    <div class="why-grid reveal">
+      <div class="why glass">
+        <div class="why-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+        <h4>Fast Loading Times</h4>
+        <p>LCP target under 1.5s so users stay and enquiries aren't lost due to sluggish pages.</p>
+      </div>
+      <div class="why glass">
+        <div class="why-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+        <h4>Secure & Legally Compliant</h4>
+        <p>Encrypted connections, clean consent flows, and regular security updates for full compliance.</p>
+      </div>
+      <div class="why glass">
+        <div class="why-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+        <h4>Accessible by Default</h4>
+        <p>Readability, contrast ratios, and clear structure so no user is left behind — WCAG compliant.</p>
+      </div>
+      <div class="why glass">
+        <div class="why-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <h4>Clear KPIs</h4>
+        <p>Leads, visibility, and conversions — all tracked transparently in a comprehensible dashboard.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="rev-hdr reveal">
+      <h2>What our clients say.</h2>
+      <div class="rev-score">
+        <span class="rscore">4.9</span>
+        <div>
+          <div class="rstar">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          </div>
+          <p class="rmeta">18 verified reviews · Recommended by businesses</p>
+        </div>
+      </div>
+    </div>
+    <div class="rev-grid reveal">
+      <div class="rev glass">
+        <div class="rev-stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+        </div>
+        <p class="rev-txt">"I'm a very critical person when it comes to design and precision. With their team I've finally found a partner I can trust with my projects without hesitation. Looking forward to a long-term collaboration."</p>
+        <div class="rev-auth"><div class="rev-av">CL</div><div><div class="rev-name">Chris Lawson</div><div class="rev-role">Business Owner</div></div></div>
+      </div>
+      <div class="rev glass">
+        <div class="rev-stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+        </div>
+        <p class="rev-txt">"Outstanding positive experience. As the proud owner of a growing business, I'm extremely satisfied with our collaboration. The results speak for themselves — more visibility, more enquiries, more growth."</p>
+        <div class="rev-auth"><div class="rev-av">HR</div><div><div class="rev-name">Ruhrklang GmbH</div><div class="rev-role">Managing Director</div></div></div>
+      </div>
+      <div class="rev glass">
+        <div class="rev-stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+        </div>
+        <p class="rev-txt">"Value for money and quality are excellent. Extremely friendly team. They understand exactly what the customer and audience need, and know how to present it in a visually compelling way."</p>
+        <div class="rev-auth"><div class="rev-av">CD</div><div><div class="rev-name">C. Demer</div><div class="rev-role">Entrepreneur</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ FULL -->
+<section id="faq">
+  <div class="wrap">
+    <div class="faq-hdr reveal">
+      <p class="label">FAQ</p>
+      <h2>Frequently asked questions.</h2>
+      <p>Answers to the most important questions about our services.</p>
+    </div>
+    <div class="faq-list reveal">
+      <div class="acc-item"><button class="acc-btn">When will I see first results?<div class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></button><div class="acc-body"><div class="acc-body-inner">Tracking and measurement are set up cleanly from day one, so there are no data gaps. First SEO effects show depending on competition within a few weeks — sustainable ranking improvements build up systematically over 3 to 6 months.</div></div></div>
+      <div class="acc-item"><button class="acc-btn">What does it cost?<div class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></button><div class="acc-body"><div class="acc-body-inner">A simple company website or landing page starts from €1,890. Larger projects with an online shop or individual features start from €7,500. The exact price depends on scope and integrations. All packages and prices are transparently listed on our pricing page.</div></div></div>
+      <div class="acc-item"><button class="acc-btn">How does the collaboration process work?<div class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></button><div class="acc-body"><div class="acc-body-inner">Five phases: kickoff and goal definition, content and structure, design and draft, technical implementation, and go-live with 30-day optimization. You have a dedicated contact throughout with clear milestones and defined feedback rounds.</div></div></div>
+      <div class="acc-item"><button class="acc-btn">How long does a project take?<div class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></button><div class="acc-body"><div class="acc-body-inner">Simple websites and landing pages are launch-ready in 21 days with our base package. More complex projects such as online shops, multilingual websites, or custom integrations take 8–12 weeks depending on scope. Exact timelines are agreed in the free initial consultation.</div></div></div>
+      <div class="acc-item"><button class="acc-btn">Can I maintain my website myself later?<div class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></button><div class="acc-body"><div class="acc-body-inner">Yes. We use easy-to-use systems and give you a clear briefing after launch. Small adjustments like texts, images, or opening hours can be made independently. For technical updates or bigger changes, we're available as optional support.</div></div></div>
+      <div class="acc-item"><button class="acc-btn">Do you work outside your home region?<div class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></button><div class="acc-body"><div class="acc-body-inner">Yes, we work with companies throughout Germany and internationally. Our focus is regional but many projects are created completely remote — no in-person meeting needed. Everything is handled digitally with full transparency and regular updates.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact">
+  <div class="wrap">
+    <div class="cta-wrap glass reveal">
+      <p class="label" style="display:flex;justify-content:center">Ready for more enquiries?</p>
+      <h2>Your website should work for you.</h2>
+      <p>We review your site, say honestly what's missing, and give you a clear action plan — free in the initial consultation.</p>
+      <div class="cta-btns">
+        <a href="#" class="btn btn-p">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="16 2 16 8 22 8"/></svg>
+          Book Free Consultation
+        </a>
+        <a href="tel:+4921915655403" class="btn btn-o">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.72 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.62 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Call Now
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <a href="#" class="logo">DesignHaus <em>Studio</em></a>
+        <p>Web Design & SEO agency for SMEs. Launch-ready in 21 days, 100+ projects, 4.9/5 rating.</p>
+        <div class="ft-soc">
+          <a href="#" class="soc-btn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" class="soc-btn" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="#" class="soc-btn" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <h4>Services</h4>
+        <ul class="ft-links">
+          <li><a href="#">Web Design</a></li>
+          <li><a href="#">SEO</a></li>
+          <li><a href="#">Google Ads</a></li>
+          <li><a href="#">IT & AI</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Company</h4>
+        <ul class="ft-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">References</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Contact</h4>
+        <ul class="ft-links">
+          <li><a href="tel:+4921915655403">+49 2191 565 540</a></li>
+          <li><a href="mailto:farzad.ksh@gmail.com">farzad.ksh@gmail.com</a></li>
+          <li><a href="#">Book Appointment</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <p>© 2025 DesignHaus Studio — KI, IT & WEB</p>
+      <div class="ft-leg">
+        <a href="#">Imprint</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* NAV SCROLL */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('s', window.scrollY > 36), { passive: true });
+
+  /* ACCORDION */
+  document.querySelectorAll('.acc-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const body = item.querySelector('.acc-body');
+      const inner = body.querySelector('.acc-body-inner');
+      const isOpen = item.classList.contains('open');
+      const parent = item.parentElement;
+      parent.querySelectorAll('.acc-item.open').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.acc-body').style.maxHeight = '0';
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        body.style.maxHeight = inner.scrollHeight + 'px';
+      }
+    });
+  });
+
+  /* SCROLL REVEAL */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('in'), i * 55);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* COUNTER ANIMATION */
+  const countEl = document.querySelector('[data-to]');
+  if (countEl) {
+    const io2 = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        let n = 0;
+        const to = +countEl.dataset.to;
+        const tick = setInterval(() => {
+          n += 3;
+          if (n >= to) { n = to; clearInterval(tick); }
+          countEl.innerHTML = n + '<em>+</em>';
+        }, 18);
+        io2.disconnect();
+      }
+    });
+    io2.observe(countEl);
+  }
+
+  /* HAMBURGER */
+  const ham = document.querySelector('.ham');
+  const links = document.querySelector('.nav-links');
+  ham.addEventListener('click', () => {
+    const open = links.style.display === 'flex';
+    if (!open) {
+      Object.assign(links.style, {
+        display:'flex', flexDirection:'column', position:'absolute',
+        top:'100%', left:'0', right:'0', background:'rgba(8,8,8,.97)',
+        backdropFilter:'blur(24px)', padding:'20px 28px',
+        gap:'18px', borderBottom:'1px solid rgba(180,200,255,.08)'
+      });
+    } else {
+      links.style.display = '';
+    }
+  });
+</script>
+</body>
+</html>
